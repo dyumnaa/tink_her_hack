@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "277880989849",
+    "project_id": "herhack-28948",
+    "storage_bucket": "herhack-28948.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:277880989849:android:672edc04a158550d4b3008",
+        "android_client_info": {
+          "package_name": "com.example.tink_her_hack"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgAvqfSOTomGnebbY-ZmVb5KtLRarhapM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
