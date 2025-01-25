@@ -9,16 +9,26 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, // Disable the debug banner
+      debugShowCheckedModeBanner: false, // Hides the debug banner
       title: 'Basic App',
       theme: ThemeData(
-        primarySwatch: Colors.blue, // Define the primary app color
+        primarySwatch: Colors.indigo,
+        fontFamily: 'Roboto', // Sets a default font
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.indigo, // Sets a consistent AppBar color
+          centerTitle: true,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.indigo,
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
       ),
-      home: HomePage(), // Set HomePage as the default route
-      routes: {
-        '/home': (context) => HomePage(), // Define additional routes if needed
-      },
+      home: HomePage(),
     );
   }
 }
-run

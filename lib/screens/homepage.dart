@@ -1,34 +1,83 @@
 import 'package:flutter/material.dart';
+import 'timeline.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: Text('Home Page', style: Theme.of(context).textTheme.titleLarge),
         centerTitle: true, // Center the AppBar title
+        actions: [
+          IconButton(
+            icon: Icon(Icons.account_circle, color: Colors.yellow), // Changed color to yellow
+            onPressed: () {
+              // Navigate to profile
+            },
+          ),
+        ],
+        leading: IconButton(
+          icon: Icon(Icons.timeline, color: Colors.white),
+          onPressed: () {
+            // Navigate to timeline
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TimelinePage()),
+            );
+          },
+        ),
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, // Center content vertically
-          crossAxisAlignment: CrossAxisAlignment.center, // Center content horizontally
           children: [
-            Text(
-              'Welcome to the Home Page!',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.blue, // Set the text color
-              ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 20), // Add spacing between widgets
-            ElevatedButton(
+            ElevatedButton.icon(
               onPressed: () {
-                // Add your button functionality here
-                print('Button Pressed!');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TimelinePage()),
+                );
               },
-              child: Text('Get Started'),
+              icon: Icon(Icons.timeline),
+              label: Text('Timeline'),
+            ),
+            SizedBox(height: 10),
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Search friends...',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                filled: true,
+                fillColor: Colors.white,
+              ),
+            ),
+            SizedBox(height: 20),
+            Expanded(
+              child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Card(
+                    margin: EdgeInsets.symmetric(vertical: 8),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.indigo.shade200,
+                        child: Text(
+                          'A',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      title: Text('Friend ${index + 1}'),
+                      subtitle: Text('Last message preview...'),
+                      trailing: Icon(Icons.message, color: Colors.indigo),
+                      onTap: () {
+                        // Navigate to chat
+                      },
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),
