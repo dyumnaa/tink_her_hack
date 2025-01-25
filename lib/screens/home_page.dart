@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'timeline.dart';
 import 'search.dart';
-import 'profile_page.dart'; // Import the Profile Page
+import 'edit_profile_screen.dart'; // Import the Profile Page
 
 class HomePage extends StatelessWidget {
   static const String id = 'home_page';
@@ -38,7 +38,8 @@ class HomePage extends StatelessWidget {
                           // Navigate to ProfilePage
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => ProfilePage()),
+                            MaterialPageRoute(
+                                builder: (context) => EditProfileScreen()),
                           );
                         },
                         child: CircleAvatar(
@@ -59,7 +60,8 @@ class HomePage extends StatelessWidget {
                         icon: Icon(Icons.logout, color: Colors.yellow),
                         onPressed: () async {
                           await FirebaseAuth.instance.signOut();
-                          Navigator.pushReplacementNamed(context, 'welcome_screen');
+                          Navigator.pushReplacementNamed(
+                              context, 'welcome_screen');
                         },
                       ),
                     ],
@@ -73,16 +75,19 @@ class HomePage extends StatelessWidget {
                     elevation: 5,
                     child: ListTile(
                       contentPadding: EdgeInsets.all(16),
-                      leading: Icon(Icons.timeline, color: Colors.indigo, size: 32),
+                      leading:
+                          Icon(Icons.timeline, color: Colors.indigo, size: 32),
                       title: Text(
                         'Explore the Timeline',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text('Share moments, add photos & videos'),
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => TimelinePage()),
+                          MaterialPageRoute(
+                              builder: (context) => TimelinePage()),
                         );
                       },
                     ),
@@ -96,10 +101,12 @@ class HomePage extends StatelessWidget {
                     elevation: 5,
                     child: ListTile(
                       contentPadding: EdgeInsets.all(16),
-                      leading: Icon(Icons.search, color: Colors.indigo, size: 32),
+                      leading:
+                          Icon(Icons.search, color: Colors.indigo, size: 32),
                       title: Text(
                         'Search Friends',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text('Find and connect with new people'),
                       onTap: () {
@@ -114,7 +121,8 @@ class HomePage extends StatelessWidget {
                   // Friends List
                   Expanded(
                     child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 12),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(16),
@@ -151,7 +159,8 @@ class HomePage extends StatelessWidget {
                                     ),
                                     title: Text('Friend ${index + 1}'),
                                     subtitle: Text('Last message preview...'),
-                                    trailing: Icon(Icons.message, color: Colors.indigo),
+                                    trailing: Icon(Icons.message,
+                                        color: Colors.indigo),
                                     onTap: () {
                                       // Navigate to chat
                                     },

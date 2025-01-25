@@ -26,7 +26,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> _uploadImage() async {
     if (_profileImage != null) {
       final storageRef = FirebaseStorage.instance.ref();
-      final profilePicRef = storageRef.child('profile_pictures/${FirebaseAuth.instance.currentUser?.uid}.jpg');
+      final profilePicRef = storageRef.child(
+          'profile_pictures/${FirebaseAuth.instance.currentUser?.uid}.jpg');
 
       try {
         await profilePicRef.putFile(_profileImage!);

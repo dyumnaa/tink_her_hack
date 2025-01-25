@@ -8,9 +8,21 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   // Mock data for users
   final List<Map<String, dynamic>> users = [
-    {'name': 'Alice', 'isInNetwork': false, 'details': 'Software Engineer at TechCorp'},
-    {'name': 'Bob', 'isInNetwork': true, 'details': 'Graphic Designer at Artify'},
-    {'name': 'Charlie', 'isInNetwork': false, 'details': 'Freelance Photographer'},
+    {
+      'name': 'Alice',
+      'isInNetwork': false,
+      'details': 'Software Engineer at TechCorp'
+    },
+    {
+      'name': 'Bob',
+      'isInNetwork': true,
+      'details': 'Graphic Designer at Artify'
+    },
+    {
+      'name': 'Charlie',
+      'isInNetwork': false,
+      'details': 'Freelance Photographer'
+    },
   ];
 
   List<Map<String, dynamic>> searchResults = [];
