@@ -9,13 +9,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, // Hides the debug banner
+      debugShowCheckedModeBanner: false, // Hide the debug banner
       title: 'Basic App',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
-        fontFamily: 'Roboto', // Sets a default font
+        fontFamily: 'Roboto', // Set a global font
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.indigo, // Sets a consistent AppBar color
+          backgroundColor: Colors.indigo, // Consistent AppBar color
           centerTitle: true,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(

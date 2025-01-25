@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'timeline.dart';
+import 'search.dart'; // Import the SearchPage
 
 class HomePage extends StatelessWidget {
   @override
@@ -10,7 +11,7 @@ class HomePage extends StatelessWidget {
         centerTitle: true, // Center the AppBar title
         actions: [
           IconButton(
-            icon: Icon(Icons.account_circle, color: Colors.yellow), // Changed color to yellow
+            icon: Icon(Icons.account_circle, color: Colors.yellow), // Profile icon
             onPressed: () {
               // Navigate to profile
             },
@@ -42,16 +43,15 @@ class HomePage extends StatelessWidget {
               label: Text('Timeline'),
             ),
             SizedBox(height: 10),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Search friends...',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                filled: true,
-                fillColor: Colors.white,
-              ),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SearchPage()),
+                );
+              },
+              icon: Icon(Icons.search),
+              label: Text('Search Friends'),
             ),
             SizedBox(height: 20),
             Expanded(
