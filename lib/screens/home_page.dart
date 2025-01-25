@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'timeline.dart';
-import 'search.dart'; // Import the SearchPage
+import 'search.dart';
+import 'profile_page.dart'; // Import the Profile Page
 
 class HomePage extends StatelessWidget {
+  static const String id = 'home_page';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,18 +28,24 @@ class HomePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // AppBar Replacement
+                  // AppBar Replacement with Logout
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      IconButton(
-                        icon: Icon(Icons.timeline, color: Colors.white),
-                        onPressed: () {
+                      // Profile Icon
+                      GestureDetector(
+                        onTap: () {
+                          // Navigate to ProfilePage
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => TimelinePage()),
+                            MaterialPageRoute(builder: (context) => ProfilePage()),
                           );
                         },
+                        child: CircleAvatar(
+                          radius: 20,
+                          backgroundColor: Colors.indigo.shade200,
+                          child: Icon(Icons.person, color: Colors.white),
+                        ),
                       ),
                       Text(
                         'Home Page',
@@ -46,9 +56,10 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                       IconButton(
-                        icon: Icon(Icons.account_circle, color: Colors.yellow),
-                        onPressed: () {
-                          // Navigate to profile
+                        icon: Icon(Icons.logout, color: Colors.yellow),
+                        onPressed: () async {
+                          await FirebaseAuth.instance.signOut();
+                          Navigator.pushReplacementNamed(context, 'welcome_screen');
                         },
                       ),
                     ],
