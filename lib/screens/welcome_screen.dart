@@ -16,42 +16,54 @@ class WelcomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Hero(
-                  tag: 'logo',
-                  child: Container(
-                    height: 60.0,
-                    child: Image.asset('images/logo.png'),
-                  ),
-                ),
-                Text(
-                  'Welcome!',
-                  style: TextStyle(
-                    fontSize: 45.0,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-              ],
-            ),
+            _buildLogoAndTitle(),
             SizedBox(height: 48.0),
-            RoundedButton(
-              color: Colors.lightBlueAccent,
-              title: 'Log In',
-              onPressed: () {
-                Navigator.pushNamed(context, LoginScreen.id);
-              },
-            ),
-            RoundedButton(
-              color: Colors.blueAccent,
-              title: 'Register',
-              onPressed: () {
-                Navigator.pushNamed(context, RegistrationScreen.id);
-              },
-            ),
+            _buildLoginButton(context),
+            _buildRegisterButton(context),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildLogoAndTitle() {
+    return Row(
+      children: <Widget>[
+        Hero(
+          tag: 'logo',
+          child: Container(
+            height: 60.0,
+            child: Image.asset('images/logo.jpg'),
+          ),
+        ),
+        Text(
+          'Welcome!',
+          style: TextStyle(
+            fontSize: 45.0,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLoginButton(BuildContext context) {
+    return RoundedButton(
+      color: Colors.lightBlueAccent,
+      title: 'Log In',
+      onPressed: () {
+        Navigator.pushNamed(context, LoginScreen.id);
+      },
+    );
+  }
+
+  Widget _buildRegisterButton(BuildContext context) {
+    return RoundedButton(
+      color: Colors.blueAccent,
+      title: 'Register',
+      onPressed: () {
+        Navigator.pushNamed(context, RegistrationScreen.id);
+      },
     );
   }
 }
