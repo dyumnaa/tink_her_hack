@@ -36,8 +36,7 @@ For Hardware:
 - USB 
 
 ### Implementation
-For Software:
-# Installation
+Our Flutter app integrates Firebase to manage authentication, real-time database interactions, and user connectivity. Using Firebase Authentication, the app enables secure login and registration. Firestore is employed to handle user profiles, timelines, and friend connections dynamically. The timeline feature fetches posts for the logged-in user or their friends, supporting actions like adding and liking posts with real-time updates. Search functionality leverages Firestore queries to find users by name, enabling connections through friend requests stored in Firestore subcollections. Profile editing allows users to update their name and bio, with immediate Firestore updates. The app ensures smooth performance through optimized queries, Firebase rules for data security, and scalable Firestore integrations.# Installation
 flutter doctor, flutter create, flutter pub get
 
 # Run
