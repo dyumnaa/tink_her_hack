@@ -65,7 +65,8 @@ Users can edit their existing profile by updating name and bio.
 https://github.com/dyumnaa/tink_her_hack/blob/main/img5.jpg
 Users can search for their friends list and connect to them.
 
-
+https://github.com/dyumnaa/tink_her_hack/blob/main/img7.jpg
+Users can upload their timelines.
 
 # Diagrams
 [activityDiagram.png](https://github.com/dyumnaa/tink_her_hack/blob/main/activityDiagram.png)
