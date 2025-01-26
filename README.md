@@ -12,6 +12,7 @@ This is a flutter based application where people can share their life moments wi
 - Member 3: Parvathy S Nair - TKM COLLEGE OF ENGINEERING
 
 ### Hosted Project Link
+https://github.com/dyumnaa/tink_her_hack/tree/main
 
 ### Project Description
 EverLink is an application developed using flutter and firebase. Users can signin and signup to their account and can update thier profile. They can share their precious moment of life to their friends and can see the timeline shared by their friends and react to them fostering effortless communication. People can easily connect with their friends and see their friends list.
@@ -45,7 +46,7 @@ flutter devices, flutter run
 ### Project Documentation
 For Software:
 
-# Screenshots (Add at least 3)
+# Screenshots
 https://github.com/dyumnaa/tink_her_hack/blob/main/img1.jpg
 This is the welcome page of EverLink
 
@@ -70,18 +71,6 @@ Users can upload their timelines.
 # Diagrams
 [activityDiagram.png](https://github.com/dyumnaa/tink_her_hack/blob/main/activityDiagram.png)
 
-# Build Photos
-![Team](Add photo of your team here)
-
-
-![Components](Add photo of your components here)
-*List out all components shown*
-
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
 
 ### Project Demo
 # Video
