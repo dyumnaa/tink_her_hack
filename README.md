@@ -57,7 +57,7 @@ For Software:
 *Add caption explaining what this shows*
 
 # Diagrams
-
+activityDiagram.png
 
 # Build Photos
 ![Team](Add photo of your team here)
