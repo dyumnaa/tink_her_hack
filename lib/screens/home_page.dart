@@ -1,11 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'timeline.dart';
 import 'search.dart';
-import 'edit_profile_screen.dart'; // Import the Profile Page
+import 'edit_profile_screen.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   static const String id = 'home_page';
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  List<Map<String, dynamic>> _friends = []; // To store the friends list
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchFriends();
+  }
+
+  Future<void> _fetchFriends() async {
+    final user = _auth.currentUser;
+    if (user == null) return;
+
+    try {
+      final snapshot = await _firestore
+          .collection('users')
+          .doc(user.uid)
+          .collection('friends')
+          .get();
+
+      setState(() {
+        _friends = snapshot.docs.map((doc) {
+          final data = doc.data();
+          return {
+            'friendName': data['friendName'] ?? 'Unknown',
+            'friendUid': doc.id,
+          };
+        }).toList();
+        _isLoading = false;
+      });
+    } catch (e) {
+      print('Error fetching friends: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +75,8 @@ class HomePage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Profile Icon
                       GestureDetector(
                         onTap: () {
-                          // Navigate to ProfilePage
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -112,7 +153,12 @@ class HomePage extends StatelessWidget {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => SearchPage()),
+                          MaterialPageRoute(
+                            builder: (context) => SearchPage(
+                              onFriendsUpdated:
+                                  _fetchFriends, // Refresh friends list
+                            ),
+                          ),
                         );
                       },
                     ),
@@ -140,34 +186,49 @@ class HomePage extends StatelessWidget {
                           ),
                           SizedBox(height: 10),
                           Expanded(
-                            child: ListView.builder(
-                              itemCount: 10,
-                              itemBuilder: (context, index) {
-                                return Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  elevation: 3,
-                                  margin: EdgeInsets.symmetric(vertical: 8),
-                                  child: ListTile(
-                                    leading: CircleAvatar(
-                                      backgroundColor: Colors.indigo.shade200,
-                                      child: Text(
-                                        'F${index + 1}',
-                                        style: TextStyle(color: Colors.white),
+                            child: _isLoading
+                                ? Center(child: CircularProgressIndicator())
+                                : _friends.isEmpty
+                                    ? Center(
+                                        child: Text(
+                                          'No friends yet. Start connecting!',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      )
+                                    : ListView.builder(
+                                        itemCount: _friends.length,
+                                        itemBuilder: (context, index) {
+                                          final friend = _friends[index];
+                                          return Card(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                            ),
+                                            elevation: 3,
+                                            margin: EdgeInsets.symmetric(
+                                                vertical: 8),
+                                            child: ListTile(
+                                              title: Text(friend['friendName']),
+                                              trailing: Icon(Icons.person,
+                                                  color: Colors.indigo),
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        TimelinePage(
+                                                            friendUid: friend[
+                                                                'friendUid']),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          );
+                                        },
                                       ),
-                                    ),
-                                    title: Text('Friend ${index + 1}'),
-                                    subtitle: Text('Last message preview...'),
-                                    trailing: Icon(Icons.message,
-                                        color: Colors.indigo),
-                                    onTap: () {
-                                      // Navigate to chat
-                                    },
-                                  ),
-                                );
-                              },
-                            ),
                           ),
                         ],
                       ),

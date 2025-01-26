@@ -3,6 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SearchPage extends StatefulWidget {
+  final VoidCallback onFriendsUpdated;
+
+  SearchPage({required this.onFriendsUpdated});
+
   @override
   _SearchPageState createState() => _SearchPageState();
 }
@@ -63,12 +67,6 @@ class _SearchPageState extends State<SearchPage> {
     }
   }
 
-  void _viewProfile(Map<String, dynamic> user) {
-    setState(() {
-      selectedUser = user;
-    });
-  }
-
   Future<void> _kinnect(Map<String, dynamic> user) async {
     try {
       final currentUser = _auth.currentUser;
@@ -91,8 +89,11 @@ class _SearchPageState extends State<SearchPage> {
       });
 
       setState(() {
-        user['isInNetwork'] = true; // Update the UI
+        user['isInNetwork'] = true;
       });
+
+      // Notify that friends list has been updated
+      widget.onFriendsUpdated();
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('You are now friends with ${user['name']}!')),
@@ -127,58 +128,25 @@ class _SearchPageState extends State<SearchPage> {
             ),
             SizedBox(height: 20),
             Expanded(
-              child: selectedUser == null
-                  ? ListView.builder(
-                      itemCount: searchResults.length,
-                      itemBuilder: (context, index) {
-                        final user = searchResults[index];
-                        return ListTile(
-                          title: Text(user['name']),
-                          subtitle: Text(user['details']),
-                          trailing: Icon(
-                            user['isInNetwork']
-                                ? Icons.person
-                                : Icons.person_add,
-                            color: Colors.indigo,
-                          ),
-                          onTap: () => _viewProfile(user),
-                        );
-                      },
-                    )
-                  : _buildProfileView(selectedUser!),
+              child: ListView.builder(
+                itemCount: searchResults.length,
+                itemBuilder: (context, index) {
+                  final user = searchResults[index];
+                  return ListTile(
+                    title: Text(user['name']),
+                    subtitle: Text(user['details']),
+                    trailing: Icon(
+                      user['isInNetwork'] ? Icons.person : Icons.person_add,
+                      color: Colors.indigo,
+                    ),
+                    onTap: () => _kinnect(user),
+                  );
+                },
+              ),
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildProfileView(Map<String, dynamic> user) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          user['name'],
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 10),
-        Text(
-          user['details'],
-          style: TextStyle(fontSize: 16),
-        ),
-        SizedBox(height: 20),
-        if (!user['isInNetwork'])
-          ElevatedButton.icon(
-            onPressed: () => _kinnect(user),
-            icon: Icon(Icons.person_add),
-            label: Text('Kinnect'),
-          )
-        else
-          Text(
-            'You are already friends with ${user['name']}!',
-            style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-          ),
-      ],
     );
   }
 }

@@ -19,12 +19,13 @@ class TimelineProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Fetch posts for the current user
   Future<void> fetchPosts() async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      final user = _auth.currentUser; // Get the current logged-in user
+      final user = _auth.currentUser;
       if (user == null) {
         print('User not logged in');
         _isLoading = false;
@@ -32,31 +33,7 @@ class TimelineProvider with ChangeNotifier {
         return;
       }
 
-      // Query posts where the authorUid matches the current user's UID
-      final snapshot = await _firestore
-          .collection('timeline')
-          .where('authorUid', isEqualTo: user.uid)
-          .get();
-
-      _posts = (await Future.wait(snapshot.docs.map((doc) async {
-        final data = doc.data() ?? {}; // Safely get the data as a map
-
-        // Fetch author's user document for the display name
-        final userDoc =
-            await _firestore.collection('users').doc(data['authorUid']).get();
-
-        return {
-          'id': doc.id,
-          'content': data['content'] ?? 'No content provided',
-          'likes': data['likes'] ?? 0,
-          'author': userDoc.exists
-              ? userDoc['name']
-              : 'Unknown User', // Fetch name from users table
-        };
-      }).toList()))
-          .where((post) => post != null)
-          .cast<Map<String, dynamic>>()
-          .toList();
+      await _fetchPostsByUid(user.uid);
     } catch (e) {
       print('Error fetching posts: $e');
     } finally {
@@ -65,12 +42,53 @@ class TimelineProvider with ChangeNotifier {
     }
   }
 
+  /// Fetch posts for a specific user by UID
+  Future<void> fetchPostsForUser(String authorUid) async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      await _fetchPostsByUid(authorUid);
+    } catch (e) {
+      print('Error fetching posts for user $authorUid: $e');
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  /// Helper function to fetch posts for a given UID
+  Future<void> _fetchPostsByUid(String uid) async {
+    final snapshot = await _firestore
+        .collection('timeline')
+        .where('authorUid', isEqualTo: uid)
+        .get();
+
+    _posts = (await Future.wait(snapshot.docs.map((doc) async {
+      final data = doc.data();
+
+      // Fetch author's user document for the display name
+      final userDoc =
+          await _firestore.collection('users').doc(data['authorUid']).get();
+
+      return {
+        'id': doc.id,
+        'content': data['content'] ?? 'No content provided',
+        'likes': data['likes'] ?? 0,
+        'author': userDoc.exists ? userDoc['name'] : 'Unknown User',
+      };
+    }).toList()))
+        .where((post) => post != null)
+        .cast<Map<String, dynamic>>()
+        .toList();
+  }
+
+  /// Add a post for the current user
   Future<void> addPost(String content) async {
     try {
       final user = _auth.currentUser;
       if (user == null) return;
 
-      // Fetch the user's name from the users table
       final userDoc = await _firestore.collection('users').doc(user.uid).get();
       final userName = userDoc.exists ? userDoc['name'] : user.email;
 
@@ -78,7 +96,7 @@ class TimelineProvider with ChangeNotifier {
         'content': content,
         'likes': 0,
         'authorUid': user.uid,
-        'author': userName, // Include author's name in the post
+        'author': userName,
       };
 
       final docRef = await _firestore.collection('timeline').add(newPost);
@@ -94,6 +112,7 @@ class TimelineProvider with ChangeNotifier {
     }
   }
 
+  /// Like a post
   Future<void> likePost(String postId) async {
     try {
       final postIndex = _posts.indexWhere((post) => post['id'] == postId);
