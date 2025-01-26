@@ -3,14 +3,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class TimelineProvider with ChangeNotifier {
-  List<Map<String, dynamic>> _posts = []; // Holds posts fetched from Firestore
-  bool _isLoading = true; // Tracks the loading state
+  List<Map<String, dynamic>> _posts = [];
+  bool _isLoading = true;
 
   List<Map<String, dynamic>> get posts => _posts;
   bool get isLoading => _isLoading;
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  /// Clear state
+  void clear() {
+    _posts = [];
+    _isLoading = true;
+    notifyListeners();
+  }
 
   Future<void> fetchPosts() async {
     _isLoading = true;
@@ -29,13 +36,12 @@ class TimelineProvider with ChangeNotifier {
       final snapshot = await _firestore
           .collection('timeline')
           .where('authorUid', isEqualTo: user.uid)
-          .orderBy('createdAt', descending: true)
           .get();
 
       _posts = (await Future.wait(snapshot.docs.map((doc) async {
         final data = doc.data() ?? {}; // Safely get the data as a map
 
-        // Fetch author's user document for display name
+        // Fetch author's user document for the display name
         final userDoc =
             await _firestore.collection('users').doc(data['authorUid']).get();
 
@@ -43,9 +49,9 @@ class TimelineProvider with ChangeNotifier {
           'id': doc.id,
           'content': data['content'] ?? 'No content provided',
           'likes': data['likes'] ?? 0,
-          'author': userDoc.exists ? userDoc['name'] : 'Unknown User',
-          'createdAt':
-              (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+          'author': userDoc.exists
+              ? userDoc['name']
+              : 'Unknown User', // Fetch name from users table
         };
       }).toList()))
           .where((post) => post != null)
@@ -64,6 +70,7 @@ class TimelineProvider with ChangeNotifier {
       final user = _auth.currentUser;
       if (user == null) return;
 
+      // Fetch the user's name from the users table
       final userDoc = await _firestore.collection('users').doc(user.uid).get();
       final userName = userDoc.exists ? userDoc['name'] : user.email;
 
@@ -71,7 +78,7 @@ class TimelineProvider with ChangeNotifier {
         'content': content,
         'likes': 0,
         'authorUid': user.uid,
-        'createdAt': FieldValue.serverTimestamp(),
+        'author': userName, // Include author's name in the post
       };
 
       final docRef = await _firestore.collection('timeline').add(newPost);
@@ -79,8 +86,6 @@ class TimelineProvider with ChangeNotifier {
       _posts.insert(0, {
         ...newPost,
         'id': docRef.id,
-        'author': userName,
-        'createdAt': DateTime.now(),
       });
 
       notifyListeners();
