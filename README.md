@@ -55,6 +55,10 @@ This is the login page whre users enter their email and password to log into the
 
 https://github.com/dyumnaa/tink_her_hack/blob/main/img3.jpg
 This is the register page where new users can register.
+
+https://github.com/dyumnaa/tink_her_hack/blob/main/img4.jpg
+This is the home page of the app wher users reach after successful login.
+
 # Diagrams
 [activityDiagram.png](https://github.com/dyumnaa/tink_her_hack/blob/main/activityDiagram.png)
 
