@@ -53,9 +53,8 @@ This is the welcome page of EverLink
 https://github.com/dyumnaa/tink_her_hack/blob/main/img2.jpg
 This is the login page whre users enter their email and password to log into their account.
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
-
+https://github.com/dyumnaa/tink_her_hack/blob/main/img3.jpg
+This is the register page where new users can register.
 # Diagrams
 [activityDiagram.png](https://github.com/dyumnaa/tink_her_hack/blob/main/activityDiagram.png)
 
