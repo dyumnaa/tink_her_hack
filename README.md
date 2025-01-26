@@ -50,8 +50,8 @@ For Software:
 https://github.com/dyumnaa/tink_her_hack/blob/main/img1.jpg
 This is the welcome page of EverLink
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
+https://github.com/dyumnaa/tink_her_hack/blob/main/img2.jpg
+This is the login page whre users enter their email and password to log into their account.
 
 ![Screenshot3](Add screenshot 3 here with proper name)
 *Add caption explaining what this shows*
