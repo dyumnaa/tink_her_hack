@@ -57,7 +57,7 @@ For Software:
 *Add caption explaining what this shows*
 
 # Diagrams
-activityDiagram.png
+[activityDiagram.png](https://github.com/dyumnaa/tink_her_hack/blob/main/activityDiagram.png)
 
 # Build Photos
 ![Team](Add photo of your team here)
