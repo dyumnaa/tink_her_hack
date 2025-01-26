@@ -1,47 +1,47 @@
-# [Project Name] 🎯
+# EverLink 🎯
 
 
 ## Basic Details
-### Team Name: [Name]
+This is a flutter based application where people can share their life moments with their friends and connect to them effortlessly.
+### Team Name: CodeCrafters
 
 
 ### Team Members
-- Member 1: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Member 1: Dyumna R - TKM COLLEGE OF ENGINEERING
+- Member 2: Megha Shaji - TKM COLLEGE OF ENGINEERING
+- Member 3: Parvathy S Nair - TKM COLLEGE OF ENGINEERING
 
 ### Hosted Project Link
-[mention your project hosted project link here]
 
 ### Project Description
-[2-3 lines about what your project does]
+EverLink is an application developed using flutter and firebase. Users can signin and signup to their account and can update thier profile. They can share their precious moment of life to their friends and can see the timeline shared by their friends and react to them fostering effortless communication. People can easily connect with their friends and see their friends list.
 
 ### The Problem statement
-[What ridiculous problem are you solving?]
+In today’s fast-paced world, maintaining meaningful relationships often takes a backseat, leaving people feeling disconnected from those who matter most. There’s a need for a platform that makes staying connected effortless, rekindles cherished memories, and encourages thoughtful interactions without adding pressure or complexity to daily life.
 
 ### The Solution
-[How are you solving it? Keep it fun!]
+EverLink simplifies staying connected by allowing users to sign in, update profiles, share life moments, and interact with friends through a shared timeline. With Firebase integration, it ensures seamless, secure, and meaningful connections.
 
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
+- Dart
+- Flutter and Firebase
+- firebase_core, firebase_auth, cloud_firestore, firebase_storage, provider, flutter_styled_toast, modal_progress_hud_nsn, animated_text_kit, image_picker, sqflite, flutter_local_notifications,path,path_provider.
+- Git, VScode, Android Studio.
 
 For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
+- Laptop
+- Mobile device
+- USB 
 
 ### Implementation
 For Software:
 # Installation
-[commands]
+flutter doctor, flutter create, flutter pub get
 
 # Run
-[commands]
+flutter devices, flutter run
 
 ### Project Documentation
 For Software:
@@ -57,17 +57,7 @@ For Software:
 *Add caption explaining what this shows*
 
 # Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
 
-For Hardware:
-
-# Schematic & Circuit
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
-
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
 
 # Build Photos
 ![Team](Add photo of your team here)
@@ -91,9 +81,9 @@ For Hardware:
 [Add any extra demo materials/links]
 
 ## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
+- Dyumna : Backend
+- Megha : Backend + frontend
+- Parvathy : Frontend + documentation
 
 ---
 Made with ❤️ at TinkerHub
