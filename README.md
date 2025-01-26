@@ -59,6 +59,11 @@ This is the register page where new users can register.
 https://github.com/dyumnaa/tink_her_hack/blob/main/img4.jpg
 This is the home page of the app wher users reach after successful login.
 
+https://github.com/dyumnaa/tink_her_hack/blob/main/img5.jpg
+Users can edit their existing profile by updating name and bio.
+
+
+
 # Diagrams
 [activityDiagram.png](https://github.com/dyumnaa/tink_her_hack/blob/main/activityDiagram.png)
 
